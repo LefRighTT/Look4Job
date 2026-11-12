@@ -1,12 +1,13 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="sticky top-0 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="flex items-center gap-2">
+                        <x-application-logo class="block h-8 w-auto fill-current text-indigo-600" />
+                        <span class="hidden md:block font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ config('app.name') }}</span>
                     </a>
                 </div>
 
@@ -70,11 +71,11 @@
              @else
             <div class="hidden sm:flex sm:items-center sm:ms-6 gap-4">
                 <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">{{ __('Log in') }}</a>
-                <a href="{{ route('register') }}" class="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">{{ __('Register') }}</a>
+                <a href="{{ route('register') }}" class="text-sm font-medium px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">{{ __('Register') }}</a>
             </div>
             @endauth
             <!-- Dark Mode Toggle -->
-            <div class="hidden sm:flex sm:items-center">
+            <div class="flex items-center ms-auto sm:ms-0">
                 <button
                     @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
                     class="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
